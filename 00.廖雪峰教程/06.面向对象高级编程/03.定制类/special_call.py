@@ -26,4 +26,4 @@ print(callable([1, 2, 3]))
 
 print(callable(None))
 
-print(callable('str'))
+print(callable('str')) 

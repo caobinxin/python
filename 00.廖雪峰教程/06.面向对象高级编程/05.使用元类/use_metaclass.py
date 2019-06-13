@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# metaclass是创建类，所以必须从`type`类型派生：
+class ListMetaclass(type):
+    def __new__(cls, name, bases, attrs):
+        attrs['add'] = lambda self, value: self.append(value)
+        
+        print('当前类的对象=>',cls, " 类的名字=>", name , " 类继承的父类=>",bases, " 类的方法集合=>",attrs)
+        return type.__new__(cls, name, bases, attrs)
+
+# 指示使用ListMetaclass来定制类
+class MyList(list, metaclass=ListMetaclass):
+    def __init__(self):
+        print('__init__')
+    # pass
+
+L = MyList()
+L.add(1)
+L.add(2)
+L.add(3)
+L.add('END')
+print(L)
+
+# 当我们传入关键字参数metaclass时，魔术就生效了，它指示Python解释器在创建MyList时，要通过ListMetaclass.__new__()来创建，在此，我们可以修改类的定义，比如，加上新的方法，然后，返回修改后的定义。
+
+# __new__()方法接收到的参数依次是：
+
+#     当前准备创建的类的对象；
+
+#     类的名字；
+
+#     类继承的父类集合；
+
+#     类的方法集合。
+
