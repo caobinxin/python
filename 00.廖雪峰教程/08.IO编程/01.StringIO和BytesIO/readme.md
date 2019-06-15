@@ -1,0 +1,1 @@
+不管是 StringIO 还是 BytesIO 他们都是在内存中的数据
